@@ -231,6 +231,7 @@ const PickupScreen = () => {
           </Pressable>
         </>
       )}
+      
     </SafeAreaView>
   );
 };
