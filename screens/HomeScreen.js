@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import Carousel from "../components/Carousel";
 
 const HomeScreen = () => {
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
@@ -118,7 +119,9 @@ const HomeScreen = () => {
       </View>
 
       {/* Search Bar */}
-      
+      {/* Image Carousel */}
+      <Carousel  />
+      {/* Image Carousel */}
     </SafeAreaView>
   );
 };
