@@ -13,6 +13,7 @@ import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import Carousel from "../components/Carousel";
+import Services from "../components/Services";
 
 const HomeScreen = () => {
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
@@ -82,7 +83,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: "#F0F0F0", flex: 1 }}>
       {/* Profile and Location UI */}
       <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
         <Ionicons name="location" size={30} color="#E32636" />
@@ -117,11 +118,14 @@ const HomeScreen = () => {
         <TextInput placeholder="Search for items or more" />
         <FontAwesome name="search" size={24} color="#E32636" />
       </View>
-
       {/* Search Bar */}
+
       {/* Image Carousel */}
-      <Carousel  />
+      <Carousel />
       {/* Image Carousel */}
+
+      {/* Services */}
+      <Services />
     </SafeAreaView>
   );
 };
