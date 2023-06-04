@@ -16,7 +16,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import Carousel from "../components/Carousel";
 import Services from "../components/Services";
 import Products from "../components/Products";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../productReducer";
 
 // products data
 const products = [
@@ -84,6 +85,8 @@ const HomeScreen = () => {
 
   const cart = useSelector((state) => state.cart.cart);
   console.log(cart);
+  const product = useSelector((state) => state.product.product);
+  console.log(product);
 
   const checkIfLocationEnabled = async () => {
     let enabled = await Location.hasServicesEnabledAsync();
@@ -140,9 +143,19 @@ const HomeScreen = () => {
       }
     }
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (product.length > 0) return;
+    const fetchProducts = () => {
+      products.map((product) => dispatch(getProducts(product)));
+    };
+    fetchProducts();
+  }, []);
+
+  console.log(product);
 
   return (
-    <ScrollView style={{ backgroundColor: "#F0F0F0", flex: 1 }}>
+    <ScrollView style={{ backgroundColor: "#F0F0F0", flex: 1, marginTop: 30 }}>
       {/* Profile and Location UI */}
       <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
         <Ionicons name="location" size={30} color="#E32636" />
@@ -187,7 +200,7 @@ const HomeScreen = () => {
       <Services />
       {/* Services */}
       {/* Products */}
-      {products.map((item, index) => {
+      {product.map((item, index) => {
         return (
           <>
             <Products item={item} key={item.id} />
