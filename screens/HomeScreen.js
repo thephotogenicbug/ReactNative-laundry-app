@@ -88,6 +88,10 @@ const HomeScreen = () => {
   const product = useSelector((state) => state.product.product);
   console.log(product);
 
+  const total = cart
+    .map((item) => item.quantity * item.price)
+    .reduce((curr, prev) => curr + prev, 0);
+
   const checkIfLocationEnabled = async () => {
     let enabled = await Location.hasServicesEnabledAsync();
     if (!enabled) {
@@ -155,59 +159,102 @@ const HomeScreen = () => {
   console.log(product);
 
   return (
-    <ScrollView style={{ backgroundColor: "#F0F0F0", flex: 1, marginTop: 30 }}>
-      {/* Profile and Location UI */}
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
-        <Ionicons name="location" size={30} color="#E32636" />
-        <View>
-          <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
-          <Text>{displayCurrentAddress}</Text>
-        </View>
-        <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
-          <Image
-            style={{ width: 40, height: 40, borderRadius: 20 }}
-            source={{
-              uri: "https://res.cloudinary.com/dv5jjlsd7/image/upload/v1676913433/alexander-hipp-iEEBWgY_6lA-unsplash_ujzf0t.jpg",
-            }}
-          />
-        </Pressable>
-      </View>
-      {/* Profile and Location UI */}
-      {/* Search Bar */}
-
-      <View
-        style={{
-          padding: 10,
-          margin: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderWidth: 0.8,
-          borderColor: "#c0c0c0",
-          borderRadius: 7,
-        }}
+    <>
+      <ScrollView
+        style={{ backgroundColor: "#F0F0F0", flex: 1, marginTop: 30 }}
       >
-        <TextInput placeholder="Search for items or more" />
-        <FontAwesome name="search" size={24} color="#E32636" />
-      </View>
-      {/* Search Bar */}
+        {/* Profile and Location UI */}
+        <View
+          style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        >
+          <Ionicons name="location" size={30} color="#E32636" />
+          <View>
+            <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
+            <Text>{displayCurrentAddress}</Text>
+          </View>
+          <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
+            <Image
+              style={{ width: 40, height: 40, borderRadius: 20 }}
+              source={{
+                uri: "https://res.cloudinary.com/dv5jjlsd7/image/upload/v1676913433/alexander-hipp-iEEBWgY_6lA-unsplash_ujzf0t.jpg",
+              }}
+            />
+          </Pressable>
+        </View>
+        {/* Profile and Location UI */}
+        {/* Search Bar */}
 
-      {/* Image Carousel */}
-      <Carousel />
-      {/* Image Carousel */}
+        <View
+          style={{
+            padding: 10,
+            margin: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderWidth: 0.8,
+            borderColor: "#c0c0c0",
+            borderRadius: 7,
+          }}
+        >
+          <TextInput placeholder="Search for items or more" />
+          <FontAwesome name="search" size={24} color="#E32636" />
+        </View>
+        {/* Search Bar */}
 
-      {/* Services */}
-      <Services />
-      {/* Services */}
-      {/* Products */}
-      {product.map((item, index) => {
-        return (
-          <>
-            <Products item={item} key={item.id} />
-          </>
-        );
-      })}
-    </ScrollView>
+        {/* Image Carousel */}
+        <Carousel />
+        {/* Image Carousel */}
+
+        {/* Services */}
+        <Services />
+        {/* Services */}
+        {/* Products */}
+        {product.map((item, index) => {
+          return (
+            <>
+              <Products item={item} key={item.id} />
+            </>
+          );
+        })}
+      </ScrollView>
+      {total == 0 ? null : (
+        <>
+          <Pressable
+            style={{
+              backgroundColor: "#088F8F",
+              padding: 10,
+              marginBottom: 10,
+              margin: 15,
+              borderRadius: 7,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text style={{ fontSize: 18, fontWeight: "600", color: "white" }}>
+                {cart.length} item | ${total}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 13,
+                  fontWeight: "400",
+                  color: "white",
+                  marginVertical: 6,
+                }}
+              >
+                extra charges might apply
+              </Text>
+            </View>
+            <Pressable>
+              <Text style={{ fontSize: 17, fontWeight: "600", color: "white" }}>
+                Proceed to pickup
+              </Text>
+            </Pressable>
+          </Pressable>
+        </>
+      )}
+    </>
   );
 };
 
