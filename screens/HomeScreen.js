@@ -16,6 +16,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Carousel from "../components/Carousel";
 import Services from "../components/Services";
 import Products from "../components/Products";
+import { useSelector } from "react-redux";
 
 // products data
 const products = [
@@ -80,6 +81,9 @@ const HomeScreen = () => {
     checkIfLocationEnabled();
     getCurrentLocation();
   }, []);
+
+  const cart = useSelector((state) => state.cart.cart);
+  console.log(cart);
 
   const checkIfLocationEnabled = async () => {
     let enabled = await Location.hasServicesEnabledAsync();
