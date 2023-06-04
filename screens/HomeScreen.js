@@ -18,6 +18,7 @@ import Services from "../components/Services";
 import Products from "../components/Products";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../productReducer";
+import { useNavigation } from "@react-navigation/native";
 
 // products data
 const products = [
@@ -91,6 +92,8 @@ const HomeScreen = () => {
   const total = cart
     .map((item) => item.quantity * item.price)
     .reduce((curr, prev) => curr + prev, 0);
+
+  const navigate = useNavigation();
 
   const checkIfLocationEnabled = async () => {
     let enabled = await Location.hasServicesEnabledAsync();
@@ -246,7 +249,7 @@ const HomeScreen = () => {
                 extra charges might apply
               </Text>
             </View>
-            <Pressable>
+            <Pressable onPress={() => navigate.navigate("Pickup")}>
               <Text style={{ fontSize: 17, fontWeight: "600", color: "white" }}>
                 Proceed to pickup
               </Text>
